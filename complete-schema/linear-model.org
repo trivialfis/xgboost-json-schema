@@ -1,0 +1,83 @@
+#+TITLE: Linear model
+
+* GBLinear
+#+BEGIN_SRC javascript
+  {
+      "GBLinearTrainParam": *GBLinearTrainParam*,
+
+      "GBLinearModel": *GBLinearModel*,
+
+      "updater": *LinearUpdater*,
+  }
+#+END_SRC
+** GBLinearTrainParam
+#+BEGIN_SRC javascript
+  {
+    "updater": "<updater-name>",
+    "<updater-name>": *LinearUpdater*,
+
+    "tolerance": *float*,
+    "max_row_perbatch": *integer*
+  }
+#+END_SRC
+** GBLinearModel
+#+BEGIN_SRC javascript
+  {
+    "GBLinearModelParam": *GBLinearModelParam*,
+    "weight": [*float*, ...]
+  }
+#+END_SRC
+*** GBLinearModelParam
+#+BEGIN_SRC javascript
+  {
+    "num_feature": *integer*,
+    "num_output_group": *integer*
+    // field `reserved` is not used.
+  }
+#+END_SRC
+
+** LinearUpdater
+*** Coordinate descent
+**** CoordinateTrainParam
+#+BEGIN_SRC javascript
+  {
+    "learning_rate": *float*,
+    "reg_lambda": *reg_lambda*,
+    "reg_alpha": *reg_alpha*,
+    "feature_selector": *integer*,
+    "top_k": *integer*,
+
+    "reg_lambda_denorm": *integer*,
+    "reg_alpha_denorm": *integer*
+  }
+#+END_SRC
+*** GPU Coordinate descent
+**** GPUCoordinateTrainParam
+#+BEGIN_SRC javascript
+  {
+    "learning_rate": *float*,
+    "reg_lambda": *reg_lambda*,
+    "reg_alpha": *reg_alpha*,
+    "feature_selector": *integer*,
+    "top_k": *integer*,
+
+    "reg_lambda_denorm": *integer*,
+    "reg_alpha_denorm": *integer*
+  }
+#+END_SRC
+*** Shotgun
+**** ShotgunTrainParam
+#+BEGIN_SRC javascript
+  {
+    "learning_rate": *float*,
+    "reg_lambda": *float*,
+    "reg_alpha": *float*,
+    "feature_selector": *integer*,
+
+    "reg_lambda_denorm": *integer*,
+    "reg_alpha_denorm": *integer*
+  }
+#+END_SRC
+#  LocalWords:  GPUCoordinateTrainParam LocalWords GBLinearTrainParam GBLinear
+#  LocalWords:  GBLinearModel LinearUpdater CoordinateTrainParam
+#  LocalWords:  ShotgunTrainParam GBLinearModelParam

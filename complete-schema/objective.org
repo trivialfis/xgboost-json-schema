@@ -1,0 +1,92 @@
+#+TITLE: Objective
+
+* SoftmaxMultiClassObj
+#+BEGIN_SRC javascript
+  {
+    "SoftmaxMultiClassObj": *SoftmaxMultiClassParam*
+  }
+#+END_SRC
+** SoftmaxMultiClassParam
+#+BEGIN_SRC javascript
+  {
+    "num_class": *integer*
+  }
+#+END_SRC
+
+* LambdaRankObj
+#+BEGIN_SRC javascript
+  {
+    "LambdaRankParam": *LambdaRankParam*
+  }
+#+END_SRC
+** LambdaRankParam
+#+BEGIN_SRC javascript
+  {
+    "num_pairsample": *integer*,
+    "fix_list_weight": *float*
+  }
+#+END_SRC
+
+* PairwiseRankObj
+#+BEGIN_SRC javascript
+  {}				// Inheriting LambdaRankObj
+#+END_SRC
+
+* LambdaRankObjNDCG
+#+BEGIN_SRC javascript
+  {}				// stateless
+#+END_SRC
+
+* LambdaRankObjMAP
+#+BEGIN_SRC javascript
+  {}				// stateless
+#+END_SRC
+
+* RegLossObj
+#+BEGIN_SRC javascript
+  {
+    "RegLossParam": *RegLossParam*
+  }
+#+END_SRC
+** RegLossParam
+#+BEGIN_SRC javascript
+  {
+    "scale_pos_weight": *float*
+  }
+#+END_SRC
+
+* PoissonRegression
+#+BEGIN_SRC javascript
+  {
+    "PoissonRegressionParam": *PoissonRegressionParam*
+  }
+#+END_SRC
+** PoissonRegressionParam
+#+BEGIN_SRC javascript
+  {
+    "max_delta_step": *float*
+  }
+#+END_SRC
+
+* CoxRegression
+#+BEGIN_SRC javascript
+  {}				// stateless
+#+END_SRC
+
+* GammaRegression
+#+BEGIN_SRC javascript
+  {}				// stateless
+#+END_SRC
+
+* TweedieRegression
+#+BEGIN_SRC javascript
+  {
+    "TweedieRegressionParam": *TweedieRegressionParam*
+  }
+#+END_SRC
+** TweedieRegressionParam
+#+BEGIN_SRC javascript
+  {
+    "tweedie_variance_power": *int*
+  }
+#+END_SRC

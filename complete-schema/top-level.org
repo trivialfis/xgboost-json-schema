@@ -1,0 +1,74 @@
+#+TITLE: XGBoost Model Schema
+
+This is an initial attempt to make a complete document of what will be saved in /XGBoost/'s future JSON model file.  The goad of introducing such a schema is to build up a extensible representation of /XGBoost/ model.  To achieve it, we examine every components inside /XGBoost/ to make the mapping between memory and serialized representations as close as possible.
+
+In this document, we decompose /XGBoost/'s components into different groups, namely top-level, objective, linear model and tree model.  Each group is documented in its own file for easier reviewing.  Once we come to the final version, different files should be concatenated into a single document.
+
+All /XGBoost/ components are represented as JSON object, with sub-component's name as the key, and value is defined by that component.  For the notation of objects' values in this document, we specify only their type.  For example, in the section `XGBoost root` we have:
+#+BEGIN_SRC javascript
+  {
+    "version" : [*integer*, *integer*],           // major, minor
+    "learner" : *Learner*
+  }
+#+END_SRC
+token `integer` represents integer type from JSON, while `Learner` represents the Learner class from *XGBoost*, concrete form of `Learner` object is documented in a separated section.  Without explicitly mentioned, all primitive types are JSON types, which include `string`, `boolean`, `integer` and `number`.  All other types are C++ classes from inside *XGBoost* represented as JSON object.  Strings representing objects' name are written as "<value>", where `<value>` can be any actual name of corresponding component.  For example, in "<gbm-name>", <gbm-name> can be replaced with `GBLinear` or `GBTree` during serialization.  For composite values, we use the /.../ notation to represent the possible values if their size can only be determined at run time.  For example, regression trees are saved as an array of tress, which is notated as `[RegTree, ...]`.  Comments inside JSON snippets are only for documentation purpose, which should not go into actual model file, since comment is **not** supported by JSON standard.
+
+The internal structure follows a nested hierarchy, represented in this document as nested headers.  For instance, `Learner` is stored `XGBoost root` hence `Learner` is a sub-header of `XGBoost root`.
+
+* XGBoost root
+#+BEGIN_SRC javascript
+  {
+    "version" : [*integer*, *integer*],           // major, minor
+    "learner" : *Learner*
+  }
+#+END_SRC
+** Learner
+#+BEGIN_SRC javascript
+  {
+    // This belongs to learner, hence handled by learner
+    "LearnerTrainParam": *LearnerTrainParam*,
+    // No `LearnerModelParameter`, we don't need it since JSON can save complete model.
+
+    "GradientBooster" : "<gbm-name>",
+    "<gbm-name>" : *GBM*,             // `GBLinear` or `GBTree`
+
+    // Currently metrics only have two parameters, namely `n_gpu` and
+    // `gpu_id`, which should be removed once multi-gpu support is
+    // sorted out.  Other parameters are passed as simple C string
+    // instead of declaring them explicitly as `dmlc::Parameter`.
+    //
+    // So using only an array of strings representing names of metrics
+    // is a valid option.  But using object can preserve the possibility
+    // of adding parameters management for metric.
+    //
+    // For now, `Metric` is just an empty object.
+    "eval_metrics" : {
+      "metric-name-0": *Metric*,
+      "metric-name-1": *Metric*,
+      ...
+    },
+
+    "objective": "<objective-name>",
+    "<objective-name>": *Objective*
+  }
+#+END_SRC
+*** LearnerTrainParam
+#+BEGIN_SRC javascript
+  {
+    seed: *integer*,
+    seed_per_iteration: *boolean*,
+    dsplit: *integer*,
+    tree_method: *integer*,
+    base_score: *float*,
+    disable_default_eval_metric: *integer*
+  }
+#+END_SRC
+
+* CLI
+Two parameters from CLIParam are worth discussing, namely:
+  + `num_round'
+  + `ntree_limit'
+
+Current proposal doesn't save anything from command line interface due to the fact that it doesn't belong to model itself.
+
+#  LocalWords:  Updaters LocalWords

@@ -1,0 +1,238 @@
+#+TITLE: Tree model
+
+* GBTree
+`GBTree` is responsible for initializing `Predictor`, currently only `gpu_predictor` has parameters, namely `n_gpus` and `gpu_id`.  These two parameters will be removed once unified devices management is sorted out.  While the type of `Predictor` is specified in a string field of `GBTreeTrainParam`, so we don't add IO for `Predictor` here.
+#+BEGIN_SRC javascript
+  {
+    "GBTreeTrainParam": *GBTreeTrainParam*,
+    "DartTrainParam": *DartTrainParam*,
+
+    // Embed objects into array.
+    "updaters": [{"<updater-name>": *TreeUpdater*}, ...],
+    "GBTreeModel": *GBTreeModel*,
+  }
+#+END_SRC
+** GBTreeTrainParam
+#+BEGIN_SRC javascript
+  {
+    "num_parallel_tree": *integer*,
+    "updater_seq": *string*,
+    "process_type": *integer*,
+
+    "predictor": *string*
+  }
+#+END_SRC
+
+** GBTreeModel
+#+BEGIN_SRC javascript
+  {
+    "GBTreeModelParam": *GBTreeModelParam*,
+
+    "base_margin": *float*,
+
+    "trees": [*RegTree*, ...]
+    "tree_info": [*integer*, ...]
+  }
+#+END_SRC
+*** GBTreeModelParam
+#+BEGIN_SRC javascript
+  {
+    "num_trees": *integer*,
+    "num_roots": *integer*,
+    "num_feature": *integer*,
+    "pad_32bit": *integer*,
+    "num_output_group": *integer*,
+    "size_leaf_vector": *integer*,
+  }
+#+END_SRC
+
+*** RegTree
+#+BEGIN_SRC javascript
+  {
+    "TreeParam": *TreeParam*,
+    "nodes": *Node*,
+    "stats": *RTreeNodeStat*
+  }
+#+END_SRC
+**** TreeParam
+#+BEGIN_SRC javascript
+  {
+    "num_roots": *integer*,
+    "num_nodes": *integer*,
+    "num_deleted": *integer*,
+    "max_depth": *integer*,
+    "num_feature": *integer*,
+    "size_leaf_vector": *integer*,
+  }
+#+END_SRC
+**** Node
+#+BEGIN_SRC javascript
+  {
+    "parent": *integer*,
+    "left": *integer*,
+    "right": *integer*
+    // FIXME: sindex, info??
+  }
+#+END_SRC
+**** RTreeNodeStat
+#+BEGIN_SRC javascript
+  {
+    loss_chg: *float*,
+    sum_hess: *float*,
+    base_weight: *float*,
+    leaf_child_cnt: *integer*
+  }
+#+END_SRC
+
+** TreeUpdater
+*** QuantileHist
+#+BEGIN_SRC javascript
+  {
+    "TrainParam": *TrainParam*,
+    "split_evaluator": *SplitEvaluator*
+  }
+#+END_SRC
+*** ColMaker
+#+BEGIN_SRC javascript
+  {
+    "TrainParam": *TrainParam*,
+    "split_evaluator": *SplitEvaluator*
+  }
+#+END_SRC
+*** GPUMaker
+#+BEGIN_SRC javascript
+  { "TrainParam": *TrainParam* }
+#+END_SRC
+*** GPUHistMaker
+#+BEGIN_SRC javascript
+  {
+    "GPUHistMakerTrainParam": *GPUHistMakerTrainParam*,
+    "TrainParam": *TrainParam*
+  }
+#+END_SRC
+*** GPUHistMakerTrainParam
+#+BEGIN_SRC javascript
+  {
+    "single_precision_histogram": *boolean*,
+    "gpu_batch_nrows": *integer*,    // FIXME: Is this needed?
+    "TrainParam": *TrainParam*
+  }
+#+END_SRC
+*** GlobalProposalHistMaker
+#+BEGIN_SRC javascript
+  { "TrainParam": *TrainParam* }
+#+END_SRC
+*** TreePruner
+#+BEGIN_SRC javascript
+  { "TrainParam": *TrainParam* }
+#+END_SRC
+
+**** TrainParam
+#+BEGIN_SRC javascript
+  {
+    "learning_rate": *float*,
+    "min_split_loss": *float*,
+    "max_depth": *integer*,
+    "max_leaves": *integer*,
+    "max_bin": *integer*,
+    "grow_policy": *integer*,           // in [0, 1]
+
+    "min_child_weight": *float*,
+    "reg_lambda": *float*,
+    "reg_alpha": *float*,
+    "default_direction": *int*
+
+    "max_delta_step": *float*,
+    "subsample": *float*
+
+    "colsample_bynode": *float*,
+    "colsample_bylevel": *float*,
+    "colsample_bytree": *float*,
+
+    "opt_dense_col": *float*,
+    "sketch_eps": *float*,
+    "sketch_ratio": *float*,
+
+    "sketch_ratio": *float*,
+    "parallel_option": *integer*,
+
+    "cache_opt": *boolean*,
+    "refresh_leaf": *boolean*,
+
+    "monotone_constraints": [*integer*, ...],
+    "split_evaluator": [*string*, ...],
+
+    "sparse_threshold": *float*,
+    "enable_feature_grouping": *integer*,
+    "max_conflict_rate": *float*,
+    "max_search_group": *int*
+  }
+#+END_SRC
+
+**** SplitEvaluator
+***** ElasticNet
+#+BEGIN_SRC javascript
+  {
+    "ElasticNetParams": *ElasticNetParams*
+  }
+#+END_SRC
+****** ElasticNetParams
+#+BEGIN_SRC javascript
+  {
+    reg_lambda: *float*,
+    reg_alpha: *float*
+  }
+#+END_SRC
+
+***** MonotonicConstraint
+#+BEGIN_SRC javascript
+  {
+    "MonotonicConstraintParams": *MonotonicConstraintParams*
+  }
+#+END_SRC
+****** MonotonicConstraintParams
+#+BEGIN_SRC javascript
+  {
+    "monotone_constraints": [*integer*, ...]
+  }
+#+END_SRC
+
+***** InteractionConstraint
+#+BEGIN_SRC javascript
+  {
+    "InteractionConstraintParams": *InteractionConstraintParams*
+  }
+#+END_SRC
+****** InteractionConstraintParams
+#+BEGIN_SRC javascript
+  {
+    "interaction_constraints": *string*,
+    "num_feature": *integer*
+  }
+#+END_SRC
+
+* Dart
+#+BEGIN_SRC javascript
+  {
+    "GBTree": *GBTree*,		// by inheritance
+    "weight_drop": [*float*, ...]
+  }
+#+END_SRC
+** DartTrainParam
+#+BEGIN_SRC javascript
+  {
+    "sample_type": *integer*,
+    "normalize_type": *integer*,
+    "rate_drop": *float*,
+    "one_drop": *boolean*,
+    "skip_drop": *float*,
+    "learning_rate": *float*
+  }
+#+END_SRC
+#  LocalWords:  RTreeNodeStat TrainParam QuantileHist ColMaker GPUMaker
+#  LocalWords:  GPUHistMaker GlobalProposalHistMaker GPUHistMakerTrainParam
+#  LocalWords:  InteractionConstraintParams InteractionConstraint LocalWords
+#  LocalWords:  MonotonicConstraintParams MonotonicConstraint ElasticNet
+#  LocalWords:  ElasticNetParams RegTree GBTreeTrainParam DartTrainParam
+#  LocalWords:  SplitEvaluator GBTreeModel GBTreeModelParam TreeParam
+#  LocalWords:  TreeUpdater
