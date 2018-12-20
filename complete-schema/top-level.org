@@ -15,6 +15,12 @@ token `integer` represents integer type from JSON, while `Learner` represents th
 
 The internal structure follows a nested hierarchy, represented in this document as nested headers.  For instance, `Learner` is stored `XGBoost root` hence `Learner` is a sub-header of `XGBoost root`.
 
+* Table Of Content                                                      :TOC_8_gh:
+- [[#xgboost-root][XGBoost root]]
+  - [[#learner][Learner]]
+    - [[#learnertrainparam][LearnerTrainParam]]
+- [[#cli][CLI]]
+
 * XGBoost root
 #+BEGIN_SRC javascript
   {

@@ -1,5 +1,33 @@
 #+TITLE: Tree model
 
+* Table Of Content                                                      :TOC_8_gh:
+- [[#gbtree][GBTree]]
+  - [[#gbtreetrainparam][GBTreeTrainParam]]
+  - [[#gbtreemodel][GBTreeModel]]
+    - [[#gbtreemodelparam][GBTreeModelParam]]
+    - [[#regtree][RegTree]]
+      - [[#treeparam][TreeParam]]
+      - [[#node][Node]]
+      - [[#rtreenodestat][RTreeNodeStat]]
+  - [[#treeupdater][TreeUpdater]]
+    - [[#quantilehist][QuantileHist]]
+    - [[#colmaker][ColMaker]]
+    - [[#gpumaker][GPUMaker]]
+    - [[#gpuhistmaker][GPUHistMaker]]
+    - [[#gpuhistmakertrainparam][GPUHistMakerTrainParam]]
+    - [[#globalproposalhistmaker][GlobalProposalHistMaker]]
+    - [[#treepruner][TreePruner]]
+      - [[#trainparam][TrainParam]]
+      - [[#splitevaluator][SplitEvaluator]]
+        - [[#elasticnet][ElasticNet]]
+          - [[#elasticnetparams][ElasticNetParams]]
+        - [[#monotonicconstraint][MonotonicConstraint]]
+          - [[#monotonicconstraintparams][MonotonicConstraintParams]]
+        - [[#interactionconstraint][InteractionConstraint]]
+          - [[#interactionconstraintparams][InteractionConstraintParams]]
+- [[#dart][Dart]]
+  - [[#darttrainparam][DartTrainParam]]
+
 * GBTree
 `GBTree` is responsible for initializing `Predictor`, currently only `gpu_predictor` has parameters, namely `n_gpus` and `gpu_id`.  These two parameters will be removed once unified devices management is sorted out.  While the type of `Predictor` is specified in a string field of `GBTreeTrainParam`, so we don't add IO for `Predictor` here.
 #+BEGIN_SRC javascript

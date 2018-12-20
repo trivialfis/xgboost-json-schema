@@ -1,5 +1,22 @@
 #+TITLE: Objective
 
+* Table Of Content                                                      :TOC_8_gh:
+- [[#softmaxmulticlassobj][SoftmaxMultiClassObj]]
+  - [[#softmaxmulticlassparam][SoftmaxMultiClassParam]]
+- [[#lambdarankobj][LambdaRankObj]]
+  - [[#lambdarankparam][LambdaRankParam]]
+- [[#pairwiserankobj][PairwiseRankObj]]
+- [[#lambdarankobjndcg][LambdaRankObjNDCG]]
+- [[#lambdarankobjmap][LambdaRankObjMAP]]
+- [[#reglossobj][RegLossObj]]
+  - [[#reglossparam][RegLossParam]]
+- [[#poissonregression][PoissonRegression]]
+  - [[#poissonregressionparam][PoissonRegressionParam]]
+- [[#coxregression][CoxRegression]]
+- [[#gammaregression][GammaRegression]]
+- [[#tweedieregression][TweedieRegression]]
+  - [[#tweedieregressionparam][TweedieRegressionParam]]
+
 * SoftmaxMultiClassObj
 #+BEGIN_SRC javascript
   {

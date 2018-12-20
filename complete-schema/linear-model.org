@@ -1,5 +1,18 @@
 #+TITLE: Linear model
 
+* Table Of Content                                                      :TOC_8_gh:
+- [[#gblinear][GBLinear]]
+  - [[#gblineartrainparam][GBLinearTrainParam]]
+  - [[#gblinearmodel][GBLinearModel]]
+    - [[#gblinearmodelparam][GBLinearModelParam]]
+  - [[#linearupdater][LinearUpdater]]
+    - [[#coordinate-descent][Coordinate descent]]
+      - [[#coordinatetrainparam][CoordinateTrainParam]]
+    - [[#gpu-coordinate-descent][GPU Coordinate descent]]
+      - [[#gpucoordinatetrainparam][GPUCoordinateTrainParam]]
+    - [[#shotgun][Shotgun]]
+      - [[#shotguntrainparam][ShotgunTrainParam]]
+
 * GBLinear
 #+BEGIN_SRC javascript
   {
