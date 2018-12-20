@@ -10,13 +10,6 @@
       - [[#node][Node]]
       - [[#rtreenodestat][RTreeNodeStat]]
   - [[#treeupdater][TreeUpdater]]
-    - [[#quantilehist][QuantileHist]]
-    - [[#colmaker][ColMaker]]
-    - [[#gpumaker][GPUMaker]]
-    - [[#gpuhistmaker][GPUHistMaker]]
-    - [[#gpuhistmakertrainparam][GPUHistMakerTrainParam]]
-    - [[#globalproposalhistmaker][GlobalProposalHistMaker]]
-    - [[#treepruner][TreePruner]]
       - [[#trainparam][TrainParam]]
       - [[#splitevaluator][SplitEvaluator]]
         - [[#elasticnet][ElasticNet]]
@@ -25,6 +18,13 @@
           - [[#monotonicconstraintparams][MonotonicConstraintParams]]
         - [[#interactionconstraint][InteractionConstraint]]
           - [[#interactionconstraintparams][InteractionConstraintParams]]
+    - [[#quantilehist][QuantileHist]]
+    - [[#colmaker][ColMaker]]
+    - [[#gpumaker][GPUMaker]]
+    - [[#gpuhistmaker][GPUHistMaker]]
+    - [[#gpuhistmakertrainparam][GPUHistMakerTrainParam]]
+    - [[#globalproposalhistmaker][GlobalProposalHistMaker]]
+    - [[#treepruner][TreePruner]]
 - [[#dart][Dart]]
   - [[#darttrainparam][DartTrainParam]]
 
@@ -113,47 +113,6 @@
 #+END_SRC
 
 ** TreeUpdater
-*** QuantileHist
-#+BEGIN_SRC javascript
-  {
-    "TrainParam": *TrainParam*,
-    "split_evaluator": *SplitEvaluator*
-  }
-#+END_SRC
-*** ColMaker
-#+BEGIN_SRC javascript
-  {
-    "TrainParam": *TrainParam*,
-    "split_evaluator": *SplitEvaluator*
-  }
-#+END_SRC
-*** GPUMaker
-#+BEGIN_SRC javascript
-  { "TrainParam": *TrainParam* }
-#+END_SRC
-*** GPUHistMaker
-#+BEGIN_SRC javascript
-  {
-    "GPUHistMakerTrainParam": *GPUHistMakerTrainParam*,
-    "TrainParam": *TrainParam*
-  }
-#+END_SRC
-*** GPUHistMakerTrainParam
-#+BEGIN_SRC javascript
-  {
-    "single_precision_histogram": *boolean*,
-    "gpu_batch_nrows": *integer*,    // FIXME: Is this needed?
-    "TrainParam": *TrainParam*
-  }
-#+END_SRC
-*** GlobalProposalHistMaker
-#+BEGIN_SRC javascript
-  { "TrainParam": *TrainParam* }
-#+END_SRC
-*** TreePruner
-#+BEGIN_SRC javascript
-  { "TrainParam": *TrainParam* }
-#+END_SRC
 
 **** TrainParam
 #+BEGIN_SRC javascript
@@ -226,6 +185,7 @@
 #+END_SRC
 
 ***** InteractionConstraint
+
 #+BEGIN_SRC javascript
   {
     "InteractionConstraintParams": *InteractionConstraintParams*
@@ -237,6 +197,48 @@
     "interaction_constraints": *string*,
     "num_feature": *integer*
   }
+#+END_SRC
+
+*** QuantileHist
+#+BEGIN_SRC javascript
+  {
+    "TrainParam": *TrainParam*,
+    "split_evaluator": *SplitEvaluator*
+  }
+#+END_SRC
+*** ColMaker
+#+BEGIN_SRC javascript
+  {
+    "TrainParam": *TrainParam*,
+    "split_evaluator": *SplitEvaluator*
+  }
+#+END_SRC
+*** GPUMaker
+#+BEGIN_SRC javascript
+  { "TrainParam": *TrainParam* }
+#+END_SRC
+*** GPUHistMaker
+#+BEGIN_SRC javascript
+  {
+    "GPUHistMakerTrainParam": *GPUHistMakerTrainParam*,
+    "TrainParam": *TrainParam*
+  }
+#+END_SRC
+*** GPUHistMakerTrainParam
+#+BEGIN_SRC javascript
+  {
+    "single_precision_histogram": *boolean*,
+    "gpu_batch_nrows": *integer*,    // FIXME: Is this needed?
+    "TrainParam": *TrainParam*
+  }
+#+END_SRC
+*** GlobalProposalHistMaker
+#+BEGIN_SRC javascript
+  { "TrainParam": *TrainParam* }
+#+END_SRC
+*** TreePruner
+#+BEGIN_SRC javascript
+  { "TrainParam": *TrainParam* }
 #+END_SRC
 
 * Dart
