@@ -10,13 +10,13 @@
       - [[#node][Node]]
       - [[#rtreenodestat][RTreeNodeStat]]
   - [[#treeupdater][TreeUpdater]]
-      - [[#trainparam][TrainParam]]
-      - [[#splitevaluator][SplitEvaluator]]
-        - [[#elasticnet][ElasticNet]]
+    - [[#trainparam][TrainParam]]
+    - [[#splitevaluator][SplitEvaluator]]
+      - [[#elasticnet][ElasticNet]]
           - [[#elasticnetparams][ElasticNetParams]]
-        - [[#monotonicconstraint][MonotonicConstraint]]
+      - [[#monotonicconstraint][MonotonicConstraint]]
           - [[#monotonicconstraintparams][MonotonicConstraintParams]]
-        - [[#interactionconstraint][InteractionConstraint]]
+      - [[#interactionconstraint][InteractionConstraint]]
           - [[#interactionconstraintparams][InteractionConstraintParams]]
     - [[#quantilehist][QuantileHist]]
     - [[#colmaker][ColMaker]]
@@ -114,7 +114,7 @@
 
 ** TreeUpdater
 
-**** TrainParam
+*** TrainParam
 #+BEGIN_SRC javascript
   {
     "learning_rate": *float*,
@@ -156,8 +156,8 @@
   }
 #+END_SRC
 
-**** SplitEvaluator
-***** ElasticNet
+*** SplitEvaluator
+**** ElasticNet
 #+BEGIN_SRC javascript
   {
     "ElasticNetParams": *ElasticNetParams*
@@ -171,7 +171,7 @@
   }
 #+END_SRC
 
-***** MonotonicConstraint
+**** MonotonicConstraint
 #+BEGIN_SRC javascript
   {
     "MonotonicConstraintParams": *MonotonicConstraintParams*
@@ -184,7 +184,7 @@
   }
 #+END_SRC
 
-***** InteractionConstraint
+**** InteractionConstraint
 
 #+BEGIN_SRC javascript
   {
