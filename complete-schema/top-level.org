@@ -1,8 +1,11 @@
 #+TITLE: XGBoost Model Schema
 
+* Overview
 This is an initial attempt to make a complete document of what will be saved in /XGBoost/'s future JSON model file.  The goad of introducing such a schema is to build up a extensible representation of /XGBoost/ model.  To achieve it, we examine every components inside /XGBoost/ to make the mapping between memory and serialized representations as close as possible.
 
 In this document, we decompose /XGBoost/'s components into different groups, namely top-level, objective, linear model and tree model.  Each group is documented in its own file for easier reviewing.  Once we come to the final version, different files should be concatenated into a single document.
+
+* Notations
 
 All /XGBoost/ components are represented as JSON object, with sub-component's name as the key, and value is defined by that component.  For the notation of objects' values in this document, we specify only their type.  For example, in the section `XGBoost root` we have:
 #+BEGIN_SRC javascript
@@ -16,6 +19,8 @@ token `integer` represents integer type from JSON, while `Learner` represents th
 The internal structure follows a nested hierarchy, represented in this document as nested headers.  For instance, `Learner` is stored `XGBoost root` hence `Learner` is a sub-header of `XGBoost root`.
 
 * Table Of Content                                                      :TOC_8_gh:
+- [[#overview][Overview]]
+- [[#notations][Notations]]
 - [[#xgboost-root][XGBoost root]]
   - [[#learner][Learner]]
     - [[#learnertrainparam][LearnerTrainParam]]
