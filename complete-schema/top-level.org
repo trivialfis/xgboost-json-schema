@@ -24,6 +24,7 @@ The internal structure follows a nested hierarchy, represented in this document 
 - [[#xgboost-root][XGBoost root]]
   - [[#learner][Learner]]
     - [[#learnertrainparam][LearnerTrainParam]]
+    - [[#learnermodelparam][LearnerModelParam]]
 - [[#cli][CLI]]
 
 * XGBoost root
@@ -64,16 +65,27 @@ The internal structure follows a nested hierarchy, represented in this document 
   }
 #+END_SRC
 *** LearnerTrainParam
+`LearnerTrainParam` is currently under some refactor.  Most importantly, after refactoring devices management facilities, we should have only one copy of `gpu_id` and `n_gpus` across **XGBoost** living in `LearnerTrainParam`.  The refactoring should be done before we finalize the implementation of JSON serialization.
 #+BEGIN_SRC javascript
   {
-    seed: *integer*,
-    seed_per_iteration: *boolean*,
-    dsplit: *integer*,
-    tree_method: *integer*,
-    base_score: *float*,
-    disable_default_eval_metric: *integer*
+    "seed": *integer*,
+    "seed_per_iteration": *boolean*,
+    "dsplit": *integer*,
+    "tree_method": *integer*,
+    "base_score": *float*,
+    "disable_default_eval_metric": *integer*,
+
+    // Following parameters are to be added.
+    "gpu_id": *integer*,
+    "n_gpus": *integer*
+
+    "base_score" : *float*,
+    "num_feature" : *integer*,
   }
 #+END_SRC
+
+*** LearnerModelParam
+Everything in `LearnerModelParam` related to training should be merged into `LearnerTrainParam`.  This includes `base_score` and `num_feature`.  We can have a duplicated copy of them in `LearnerModelParam` until we deprecate binary serialization.  While `num_class` can be handled in softmax objective.
 
 * CLI
 Two parameters from CLIParam are worth discussing, namely:
@@ -82,4 +94,5 @@ Two parameters from CLIParam are worth discussing, namely:
 
 Current proposal doesn't save anything from command line interface due to the fact that it doesn't belong to model itself.
 
-#  LocalWords:  Updaters LocalWords
+#  LocalWords:  Updaters LocalWords softmax LearnerTrainParam num#  LocalWords:  LearnerModelParam
+#  LocalWords:  CLIParam

@@ -1,5 +1,7 @@
 #+TITLE: Linear model
 
+Unlike tree updater, we have lots of duplicated parameters in linear model.  We should remove these duplication by grouping them into a single `dmlc::Parameter` object.  But for now, we document them as it is.
+
 * Table Of Content                                                      :TOC_8_gh:
 - [[#gblinear][GBLinear]]
   - [[#gblineartrainparam][GBLinearTrainParam]]
@@ -14,6 +16,7 @@
       - [[#shotguntrainparam][ShotgunTrainParam]]
 
 * GBLinear
+GBLinear is the root object for boosting linear models.
 #+BEGIN_SRC javascript
   {
       "GBLinearTrainParam": *GBLinearTrainParam*,

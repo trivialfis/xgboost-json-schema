@@ -1,5 +1,7 @@
 #+TITLE: Objective
 
+Objective functions have their own parameters, which is not saved in binary format.  Here we try to address this problem by documenting all existing objective parameters.  Stateless objectives are represented as empty JSON object for consistency.
+
 * Table Of Content                                                      :TOC_8_gh:
 - [[#softmaxmulticlassobj][SoftmaxMultiClassObj]]
   - [[#softmaxmulticlassparam][SoftmaxMultiClassParam]]

@@ -83,6 +83,7 @@
   }
 #+END_SRC
 **** TreeParam
+Curiously, some parameters might be better off being a member variable.  But for now, we serialize it as it is.
 #+BEGIN_SRC javascript
   {
     "num_roots": *integer*,
