@@ -78,8 +78,8 @@
 #+BEGIN_SRC javascript
   {
     "TreeParam": *TreeParam*,
-    "nodes": *Node*,
-    "stats": *RTreeNodeStat*
+    "nodes": [*Node*, ...],
+    "stats": [*RTreeNodeStat*, ...]
   }
 #+END_SRC
 **** TreeParam
