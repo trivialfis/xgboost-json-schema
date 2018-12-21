@@ -8,6 +8,8 @@
     - [[#regtree][RegTree]]
       - [[#treeparam][TreeParam]]
       - [[#node][Node]]
+        - [[#test-node][Test node]]
+        - [[#leaf-node][Leaf node]]
       - [[#rtreenodestat][RTreeNodeStat]]
   - [[#treeupdater][TreeUpdater]]
     - [[#trainparam][TrainParam]]
@@ -95,14 +97,18 @@ Curiously, some parameters might be better off being a member variable.  But for
   }
 #+END_SRC
 **** Node
+There are two different set of tree nodes, namely leaf nodes and non-leaf nodes(test nodes).
+***** Test node
 #+BEGIN_SRC javascript
-  {
-    "parent": *integer*,
-    "left": *integer*,
-    "right": *integer*
-    // FIXME: sindex, info??
-  }
+  // is_leaf, left_id  , right_id , feature_id, split_condition, default_left
+  [*boolean*, *integer*, *integer*, *float*   , *float*        , *boolean*]
 #+END_SRC
+***** Leaf node
+#+BEGIN_SRC javascript
+  // is_leaf, leaf_output
+  [*boolean*, *float*]
+#+END_SRC
+
 **** RTreeNodeStat
 #+BEGIN_SRC javascript
   {
